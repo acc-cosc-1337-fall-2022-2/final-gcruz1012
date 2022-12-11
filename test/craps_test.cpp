@@ -2,6 +2,7 @@
 #include "catch.hpp"
 #include "die.h"
 #include "roll.h"
+#include "shooter.h"
 #include <time.h>
 
 
@@ -54,3 +55,38 @@ TEST_CASE("Test Die Rolls return a value from 2 to 12")
 
 }
 
+TEST_CASE("Test Shooter returns a Roll and verify that Roll result has a value in the range of 2-12")
+{
+	srand(time(NULL));
+
+
+	Die die1;
+	Die die2;
+
+  Shooter shooter(die1, die2);
+
+  // Call the throw_die method on the Shooter object
+  Roll* roll = shooter.throw_die(die1, die2);
+
+  // Check that the throw_die method returns a Roll object
+  REQUIRE(roll != nullptr);
+
+  // Check that the value of the Roll object is between 2 and 12
+  REQUIRE(roll->roll_value() >= 2);
+  REQUIRE(roll->roll_value() <= 12);
+  
+  for(int i = 0; i<10;i++)
+  {
+  	// Call the throw_die method on the Shooter object
+  	Roll* roll = shooter.throw_die(die1, die2);
+
+  	// Check that the throw_die method returns a Roll object
+  	REQUIRE(roll != nullptr);
+
+  	// Check that the value of the Roll object is between 2 and 12
+  	REQUIRE(roll->roll_value() >= 2);
+  	REQUIRE(roll->roll_value() <= 12);
+  }
+
+
+}
